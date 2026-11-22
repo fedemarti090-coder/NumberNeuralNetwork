@@ -8,8 +8,10 @@
 class DataLoader
 {
 private:
-    std::string dataPath = "../data/t10k-images.idx3-ubyte";
-    std::string labelsPath = "../data/t10k-labels.idx1-ubyte";
+
+
+    std::string dataPath;
+    std::string labelsPath;
 
     static uint32_t readBigEndianU32(std::ifstream &file)
     {
@@ -20,6 +22,20 @@ private:
     }
 
 public:
+    void init(bool large)
+    {
+        if (!large)
+        {
+            dataPath = "../data/train-test/t10k-images.idx3-ubyte";
+            labelsPath = "../data/train-test/t10k-labels.idx1-ubyte";
+        }
+        else
+        {
+            dataPath = "../data/train/train-images.idx3-ubyte";
+            labelsPath = "../data/train/train-labels.idx1-ubyte";
+        }
+    }
+
     std::vector<float> getNormalizedData()
     {
         std::ifstream file(dataPath, std::ios::binary);
