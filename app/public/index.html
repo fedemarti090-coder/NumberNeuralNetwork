@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1020">
+    <title>LeNet Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app">
+        <header class="topbar">
+            <div class="brand-mark" aria-hidden="true">N</div>
+            <div>
+                <p class="eyebrow">NEURAL NETWORK · WASM</p>
+                <h1>LeNet <span>Studio</span></h1>
+            </div>
+            <div class="model-status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="modelStatus">Avvio modello…</span>
+            </div>
+        </header>
+
+        <section class="workspace" aria-label="Riconoscimento cifra">
+            <section class="draw-panel panel">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">AREA DI DISEGNO</p>
+                        <h2>Scrivi una cifra</h2>
+                    </div>
+                    <span class="canvas-size">28 × 28 px</span>
+                </div>
+
+                <div class="canvas-stage">
+                    <canvas id="digitCanvas" width="28" height="28"
+                        aria-label="Area per disegnare una cifra da zero a nove"></canvas>
+                </div>
+
+                <div class="draw-actions">
+                    <p class="hint">Disegna in bianco, come una cifra su un foglio.</p>
+                    <div class="buttons">
+                        <button id="clearButton" class="button button-secondary" type="button">Pulisci</button>
+                        <button id="predictButton" class="button button-primary" type="button" disabled>
+                            <span>Riconosci</span><span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </div>
+                <output id="result" class="result" aria-live="polite">Caricamento del modello…</output>
+            </section>
+
+            <section class="chart-panel panel" aria-labelledby="chartTitle">
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">INFERENZA IN TEMPO REALE</p>
+                        <h2 id="chartTitle">Probabilità</h2>
+                    </div>
+                    <span class="chart-unit">%</span>
+                </div>
+
+                <div class="chart" id="probabilityChart" role="img"
+                    aria-label="Probabilità assegnata dal modello a ogni cifra">
+                </div>
+                <div class="axis" aria-hidden="true">
+                    <span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span>
+                </div>
+                <p class="chart-note">Confidenza stimata per ciascuna cifra</p>
+            </section>
+        </section>
+
+        <footer class="footer">Disegna una cifra e lascia che LeNet la riconosca.</footer>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

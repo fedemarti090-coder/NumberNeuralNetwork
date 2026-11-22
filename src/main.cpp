@@ -6,14 +6,6 @@
 #include "core/dataLoader.hpp"
 #include "core/layer.hpp"
 
-int argmax(const std::vector<float> &v)
-{
-    if (v.empty())
-        return -1;
-    auto it = std::max_element(v.begin(), v.end());
-    return static_cast<int>(std::distance(v.begin(), it));
-}
-
 int main()
 {
 

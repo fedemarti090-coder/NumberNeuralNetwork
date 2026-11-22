@@ -436,6 +436,57 @@ private:
     }
 
 public:
+    std::vector<float> predictWithProbs(const std::vector<float> &input)
+    {
+        std::vector<float> probs(out_size, 0.0f);
+        if (input.size() != 784)
+        {
+            return probs;
+        }
+
+        std::vector<float> C1 = C(input, 1, 28, 5, 6, c1_w_offset, c1_b_offset);
+        std::vector<float> S2 = S(C1, 0, 6, 24, 2);
+        std::vector<float> C3 = C(S2, 6, 12, 5, 16, c3_w_offset, c3_b_offset);
+        std::vector<float> S4 = S(C3, 1, 16, 8, 2);
+        std::vector<float> C5 = C(S4, 16, 4, 4, 120, c5_w_offset, c5_b_offset);
+        std::vector<float> F6 = F6_(C5);
+        std::vector<float> Out = Output(F6);
+
+        if (Out.size() != out_size)
+        {
+            return probs;
+        }
+
+        float maxValue = *std::max_element(Out.begin(), Out.end());
+        float sum = 0.0f;
+        for (int i = 0; i < out_size; ++i)
+        {
+            probs[i] = std::exp(Out[i] - maxValue);
+            sum += probs[i];
+        }
+
+        if (sum > 0.0f)
+        {
+            for (float &prob : probs)
+            {
+                prob /= sum;
+            }
+        }
+
+        return probs;
+    }
+
+    int predict(const std::vector<float> &input)
+    {
+        std::vector<float> probs = predictWithProbs(input);
+        if (probs.size() != out_size)
+        {
+            return -1;
+        }
+
+        return argmax(probs);
+    }
+
     bool elabImg(std::vector<float> Input, int ans)
     {
         /*
