@@ -160,9 +160,4 @@ Testando invece il dataset da $60.000$ immagini, l'accuracy va dal **97.5%** fin
   <img src="./img/img-3.png" alt="Risultati del test su 60.000 immagini" />
 </div>
 
-| Dataset | Campioni | Accuracy |
-|---|---:|---:|
-| Test cifre manoscritte | $10.000$ | $97.0\% – 97.5\%$ |
-| Valutazione estesa | $60.000$ | $97.5\% – 97.9\%$ |
-
 Per analisi dettagliate sulle prestazioni è possibile consultare i log in `data/log/`.
